@@ -33,10 +33,27 @@ document.addEventListener('DOMContentLoaded', function() {
       }
      
     //----------------speech to text FUNCTIONS-----------------------
-      function voice() {
-        // Add your voice logic here
-        console.log('Voice button clicked!');
+    function voice() {
+      // Add your voice logic here
+      let temp = document.querySelector('h1').innerText
+      let city = document.querySelector('h2').innerText;
+      let weather = document.querySelector('h3').innerText;
+      let textToSpeak = `${city} is experiencing ${weather}, it's currently ${temp}.`;
+  
+      // Filter available voices to find a female voice
+      let femaleVoice = speechSynthesis.getVoices().find(voice => voice.name === 'Google UK English Female');
+  
+      if (femaleVoice) {
+          let utterance = new SpeechSynthesisUtterance(textToSpeak);
+          utterance.voice = femaleVoice;
+          utterance.rate = 0.8;
+  
+          window.speechSynthesis.speak(utterance);
+          console.log('Voice button clicked!');
+      } else {
+          console.error('Female voice not found.');
       }
+  }
 
       //----------------RAVE FUNCTIONS-----------------------
       function rave() {
